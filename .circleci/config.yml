@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  ssh: skillup/ssh@2.1.0
+  aws-ecr: circleci/aws-ecr@8.1.3 
 
 jobs: 
   build: 
@@ -17,28 +17,44 @@ jobs:
     steps: 
       - checkout 
       - run: npm test
-  deploy:
-    working_directory: /usr/src/app
-    docker: 
-      - image: velink/interview-nodeapp:0.0.2
-    steps:
-        - add_ssh_keys:
-            fingerprints:
-               - "b7:35:a6:4e:9b:0d:6d:d4:78:1e:9a:97:2a:66:6b:be"
-        - run: 
-           name: Deploy over SSH
-           command:  |
-             ssh -o StrictHostKeyCheckin=no ubuntu@18.170.99.114 
-             echo "we get to here"
+
 
 # Invoke jobs via worklow 
-workflows: 
-  build:
+
+workflows:
+  build_and_push_image:
     jobs:
-     - build
-     - test:
-         requires:
-         - build
-     - deploy:
-         requires:
-         - build 
+      - aws-ecr/build-and-push-image:
+          aws-access-key-id: "${AWS_ACCESS_KEY_ID}"
+          aws-cli-version: latest
+          aws-secret-access-key: "${AWS_SECRET_ACCESS_KEY}"
+          context: myContext
+          create-repo: true
+          dockerfile: dockerfile
+          executor: aws-ecr/default
+          extra-build-args: '--compress'
+          new-profile-name: circleci-profile
+          no-output-timeout: 20m
+          path: ./
+          platform: linux/amd64
+          profile-name: circleci
+          public-registry: false
+          push-image: true
+          region: "${AWS_REGION}"
+          repo: interview-nodeapp
+          repo-scan-on-push: true
+          skip-when-tags-exist: false
+          tag: 'latest,myECRRepoTag'
+
+
+
+# workflows: 
+#   build:
+#     jobs:
+#      - build
+#      - test:
+#          requires:
+#          - build
+#      - deploy:
+#          requires:
+#          - build 
