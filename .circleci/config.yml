@@ -33,11 +33,9 @@ workflows:
           dockerfile: dockerfile
           executor: aws-ecr/default
           extra-build-args: '--compress'
-          new-profile-name: circleci-profile
           no-output-timeout: 20m
           path: ./
           platform: linux/amd64
-          profile-name: circleci
           public-registry: false
           push-image: true
           region: AWS_REGION
