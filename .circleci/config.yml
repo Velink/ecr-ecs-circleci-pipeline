@@ -20,14 +20,19 @@ jobs:
     docker: 
       - image: velink/interview-nodeapp:0.0.2
     steps:
-        - run: ssh ubuntu@18.170.99.114 
+        - run: 
+           name: Deploy over SSH
+           command: |
+           ssh ubuntu@18.170.99.114 
 
 # Invoke jobs via worklow 
 workflows: 
   build:
     jobs:
      - build
-     - test
+     - test:
+         requires:
+         - build
      - deploy:
          requires:
          - build 
