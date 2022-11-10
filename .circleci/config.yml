@@ -35,9 +35,9 @@ workflows:
       - aws-ecs/deploy-service-update:
           requires:
             - aws-ecr/build-and-push-image
-          family: interview-nodeapp-service-service
+          family: interview-nodeapp-service
           cluster: interview-nodeapp-cluster
-          container-image-name-updates: container=interview-nodeapp,tag="latest"
+          container-image-name-updates: "container=interview-nodeapp-service,tag=latest"
      
 # workflows: 
 #   build:
