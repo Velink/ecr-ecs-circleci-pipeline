@@ -36,8 +36,8 @@ workflows:
           requires:
             - aws-ecr/build-and-push-image
           family: interview-nodeapp-service
-          cluster: interview-nodeapp
-          container-image-name-updates: container=interview-nodeapp,tag="latest, v0.1.${CIRCLE_BUILD_NUM}"
+          cluster: interview-nodeapp-cluster
+          container-image-name-updates: container=interview-nodeapp,tag="latest"
      
 # workflows: 
 #   build:
