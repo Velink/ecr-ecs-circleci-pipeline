@@ -12,6 +12,7 @@
   },
   "scripts": {
     "start": "node index.js",
+    "stop": "node index.stop.js",    
     "test": "jest"
   },
   "author": "",
