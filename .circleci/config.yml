@@ -38,7 +38,7 @@ workflows:
           platform: linux/amd64
           public-registry: false
           push-image: true
-          region: AWS_REGION
+          region: $AWS_REGION
           repo: interview-nodeapp
           repo-scan-on-push: true
           skip-when-tags-exist: false
