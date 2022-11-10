@@ -15,6 +15,12 @@ jobs:
     steps: 
       - checkout 
       - run: npm test
+  deploy:
+    working_directory: /usr/src/app
+    docker: 
+      - image: velink/interview-nodeapp:0.0.2
+    steps:
+        - run: ssh ubuntu@18.170.99.114 
 
 # Invoke jobs via worklow 
 workflows: 
@@ -22,3 +28,10 @@ workflows:
     jobs:
      - build
      - test
+     - deploy:
+         requires:
+         - build 
+
+         filters:
+         branches:
+            only: main
