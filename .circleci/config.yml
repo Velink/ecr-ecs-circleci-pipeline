@@ -31,12 +31,12 @@ workflows:
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           region: eu-west-2
           registry-id: AWS_ECR_REGISTRY_ID
-      # - aws-ecs/deploy-service-update:
-          # requires:
-          #   - aws-ecr/build-and-push-image
-          # family: interview-nodeapp-service
-          # cluster: interview-nodeapp-cluster
-          # container-image-name-updates: container=interview-nodeapp-service,tag=latest
+      - aws-ecs/deploy-service-update:
+          requires:
+            - aws-ecr/build-and-push-image
+          family: interview-nodeapp-service
+          cluster: interview-nodeapp
+          container-image-name-updates: container=interview-nodeapp,tag="latest, v0.1.${CIRCLE_BUILD_NUM}"
      
 # workflows: 
 #   build:
