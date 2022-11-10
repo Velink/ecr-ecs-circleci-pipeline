@@ -2,6 +2,7 @@ version: 2.1
 
 jobs: 
   build: 
+    working_directory: /usr/src/app
     docker:
       - image: velink/interview-nodeapp:0.0.1
     steps: 
