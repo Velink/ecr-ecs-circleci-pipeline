@@ -25,9 +25,9 @@ workflows:
   build_and_push_image:
     jobs:
       - aws-ecr/build-and-push-image:
-          aws-access-key-id: $AWS_ACCESS_KEY_ID
+          aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-cli-version: latest
-          aws-secret-access-key: $AWS_SECRET_ACCESS_KEY
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           context: myContext
           create-repo: true
           dockerfile: dockerfile
@@ -40,7 +40,7 @@ workflows:
           profile-name: circleci
           public-registry: false
           push-image: true
-          region: $AWS_REGION
+          region: AWS_REGION
           repo: interview-nodeapp
           repo-scan-on-push: true
           skip-when-tags-exist: false
