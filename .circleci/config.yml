@@ -35,7 +35,7 @@ workflows:
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           region: eu-west-2
           registry-id: AWS_ECR_REGISTRY_ID
-          tag: '$CIRCLE_SHA1,latest'
+          tag: '$CIRCLE_SHA1'
       - unit_tests: 
           requires:
             - aws-ecr/build-and-push-image
@@ -44,7 +44,7 @@ workflows:
             - unit_tests
           family: interview-nodeapp
           cluster: interview-nodeapp
-          container-image-name-updates: "container=interview-nodeapp,tag=$CIRCLE_SHA1,latest"
+          container-image-name-updates: "container=interview-nodeapp,tag=$CIRCLE_SHA1"
 
 
   # PULLING IMAGE FROM DOCKER REGISTRY 
