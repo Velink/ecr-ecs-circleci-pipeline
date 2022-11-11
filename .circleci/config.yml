@@ -2,9 +2,11 @@ version: 2.1
 orbs:
   aws-ecr: circleci/aws-ecr@8.1.3 
   aws-ecs: circleci/aws-ecs@3.2.0
+  github-super-linter: circleci/github-super-linter@1.0.1
 
 jobs: 
-  unit_tests:
+  lint-code:
+    unit_tests:
     working_directory: /usr/src/app
     docker:
       - image: 776933909252.dkr.ecr.eu-west-2.amazonaws.com/interview-nodeapp:latest
@@ -14,20 +16,6 @@ jobs:
     steps: 
       - checkout
       - run: npm test
-  # build: 
-  #   working_directory: /usr/src/app
-  #   docker:
-  #     - image: velink/interview-nodeapp:0.0.2
-  #   steps: 
-  #     - checkout
-  #     - run: npm start
-  # test: 
-  #   working_directory: /usr/src/app
-  #   docker: 
-  #     - image: velink/interview-nodeapp:0.0.2
-  #   steps: 
-  #     - checkout 
-  #     - run: npm test
 
 # Invoke jobs via worklow 
 
@@ -51,6 +39,23 @@ workflows:
           family: interview-nodeapp
           cluster: interview-nodeapp
           container-image-name-updates: "container=interview-nodeapp,tag=latest"
+
+
+  # PULLING IMAGE FROM DOCKER REGISTRY 
+  # build: 
+  #   working_directory: /usr/src/app
+  #   docker:
+  #     - image: velink/interview-nodeapp:0.0.2
+  #   steps: 
+  #     - checkout
+  #     - run: npm start
+  # test: 
+  #   working_directory: /usr/src/app
+  #   docker: 
+  #     - image: velink/interview-nodeapp:0.0.2
+  #   steps: 
+  #     - checkout 
+  #     - run: npm test
      
 # workflows: 
 #   build:
