@@ -5,8 +5,8 @@ orbs:
   github-super-linter: circleci/github-super-linter@1.0.1
 
 jobs: 
-  lint-code:
-    unit_tests:
+  
+  unit_tests:
     working_directory: /usr/src/app
     docker:
       - image: 776933909252.dkr.ecr.eu-west-2.amazonaws.com/interview-nodeapp:latest
@@ -22,6 +22,7 @@ jobs:
 workflows:
   build_and_push_image:
     jobs:
+      - github-super-linter/lint
       - aws-ecr/build-and-push-image:
           repo: interview-nodeapp
           dockerfile: dockerfile
