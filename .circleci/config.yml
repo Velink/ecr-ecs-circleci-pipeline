@@ -32,9 +32,20 @@ workflows:
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           region: eu-west-2
           registry-id: AWS_ECR_REGISTRY_ID
-      - aws-ecs/deploy-service-update:
+      - unit_tests: 
           requires:
             - aws-ecr/build-and-push-image
+          docker:
+            - image: 776933909252.dkr.ecr.eu-west-2.amazonaws.com/interview-nodeapp:latest
+              aws_auth:
+                aws_access_key_id: AWS_ACCESS_KEY_ID
+                aws_secret_access_key: AWS_SECRET_ACCESS_KEY
+          steps: 
+            - checkout
+            - run: npm test
+      - aws-ecs/deploy-service-update:
+          requires:
+            - unit_tests
           family: interview-nodeapp
           cluster: interview-nodeapp
           container-image-name-updates: "container=interview-nodeapp,tag=latest"
