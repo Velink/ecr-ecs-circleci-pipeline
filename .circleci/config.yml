@@ -10,7 +10,7 @@ jobs:
   unit_tests:
     working_directory: /usr/src/app
     docker:
-      - image: 776933909252.dkr.ecr.eu-west-2.amazonaws.com/interview-nodeapp:latest
+      - image: 776933909252.dkr.ecr.eu-west-2.amazonaws.com/interview-nodeapp:'$CIRCLE_SHA1'
         aws_auth:
           aws_access_key_id: $AWS_ACCESS_KEY_ID
           aws_secret_access_key: $AWS_SECRET_ACCESS_KEY
