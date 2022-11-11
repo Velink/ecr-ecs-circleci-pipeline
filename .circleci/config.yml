@@ -5,6 +5,7 @@ orbs:
 
 jobs: 
   unit_tests:
+    working_directory: /usr/src/app
     docker:
       - image: 776933909252.dkr.ecr.eu-west-2.amazonaws.com/interview-nodeapp:latest
         aws_auth:
