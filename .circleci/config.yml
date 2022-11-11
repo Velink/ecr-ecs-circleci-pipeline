@@ -26,6 +26,8 @@ workflows:
     jobs:
       - github-super-linter/lint
       - aws-ecr/build-and-push-image:
+          requires:
+            - github-super-linter/lint
           repo: interview-nodeapp
           dockerfile: dockerfile
           path: .
