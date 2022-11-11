@@ -7,7 +7,6 @@ orbs:
   github-super-linter: circleci/github-super-linter@1.0.1
 
 jobs: 
-  
   unit_tests:
     working_directory: /usr/src/app
     docker:
@@ -20,6 +19,7 @@ jobs:
       - run: npm test
 
 # Invoke jobs via worklow 
+# Testing filter to main
 
 workflows:
   build_and_push_image:
@@ -45,6 +45,10 @@ workflows:
           family: interview-nodeapp
           cluster: interview-nodeapp
           container-image-name-updates: "container=interview-nodeapp,tag=$CIRCLE_SHA1"
+          filters:
+            branches:
+              only:
+                - main
 
 
   # PULLING IMAGE FROM DOCKER REGISTRY 
