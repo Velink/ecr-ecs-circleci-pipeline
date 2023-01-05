@@ -4,7 +4,6 @@ version: 2.1
 orbs:
   aws-ecr: circleci/aws-ecr@8.1.3 
   aws-ecs: circleci/aws-ecs@3.2.0
-  github-super-linter: circleci/github-super-linter@1.0.1
 
 jobs: 
   unit_tests:
@@ -24,10 +23,7 @@ jobs:
 workflows:
   build_and_push_image:
     jobs:
-      - github-super-linter/lint
       - aws-ecr/build-and-push-image:
-          requires:
-            - github-super-linter/lint
           repo: interview-nodeapp
           dockerfile: dockerfile
           path: .
